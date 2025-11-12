@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Resume</title>
+
+<style>
+/* 🌈 พื้นหลังและฟอนต์ */
+body {
+  font-family: "Prompt", sans-serif;
+  background: linear-gradient(135deg, #fdfbfb, #ebedee);
+  margin: 0;
+  scroll-behavior: smooth;
+}
+
+/* 🔝 Navbar */
+nav {
+  background-color: #2c3e50;
+  position: fixed;
+  width: 100%;
+  top: 0;
+  z-index: 1000;
+  display: flex;
+  justify-content: center;
+  padding: 10px 0;
+}
+nav a {
+  color: white;
+  text-decoration: none;
+  margin: 0 20px;
+  font-weight: 600;
+  transition: 0.3s;
+}
+nav a:hover {
+  color: #1abc9c;
+}
+
+/* 🏠 Section ทั่วไป */
+section {
+  padding: 90px 20px;
+  max-width: 1000px;
+  margin: auto;
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity 1s ease, transform 1s ease;
+}
+section.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* 🧍 Profile */
+#profile {
+  text-align: center;
+}
+#profile img {
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 5px solid #1abc9c;
+  box-shadow: 0 0 15px rgba(0,0,0,0.3);
+  animation: fadeIn 1.2s ease-in-out;
+}
+#profile h1 {
+  font-size: 2em;
+  margin: 15px 0 5px;
+}
+#profile p {
+  color: #555;
+}
+
+/* 🏷️ หัวข้อ */
+h2 {
+  color: #1abc9c;
+  border-bottom: 3px solid #1abc9c;
+  display: inline-block;
+  padding-bottom: 5px;
+}
+
+/* 💡 Card */
+.card {
+  background: white;
+  border-radius: 15px;
+  padding: 25px;
+  margin-top: 15px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+  transition: transform 0.4s ease;
+}
+.card:hover {
+  transform: translateY(-5px);
+}
+
+/* ✨ Animation keyframes */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* 🎓 Education Section */
+.edu-item {
+  display: flex;
+  align-items: center;
+  gap: 25px;
+  margin-bottom: 30px;
+  transition: transform 0.4s ease, opacity 0.6s ease;
+  opacity: 0;
+  transform: translateY(30px);
+}
+.edu-item.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+.edu-item img {
+  width: 160px;
+  height: 160px;
+  border-radius: 20px;
+  object-fit: cover;
+  border: 3px solid #1abc9c;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+  transition: transform 0.4s ease;
+}
+.edu-item img:hover {
+  transform: scale(1.08);
+}
+.edu-text p {
+  margin: 5px 0;
+  color: #333;
+  font-size: 1rem;
+}
+
+/* 🏆 Activity Section */
+.activity-item {
+  display: flex;
+  align-items: center;
+  gap: 25px;
+  margin-top: 25px;
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+.activity-item.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+.activity-item img {
+  width: 200px;
+  height: 200px;
+  border-radius: 20px;
+  object-fit: cover;
+  border: 3px solid #1abc9c;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.25);
+  transition: transform 0.4s ease;
+}
+.activity-item img:hover {
+  transform: scale(1.08) rotate(1deg);
+}
+.activity-text {
+  flex: 1;
+}
+.activity-text p {
+  margin: 5px 0;
+  color: #333;
+  font-size: 1rem;
+}
+
+/* 📱 Responsive */
+@media (max-width: 700px) {
+  .edu-item, .activity-item {
+    flex-direction: column;
+    text-align: center;
+  }
+  .edu-item img, .activity-item img {
+    width: 180px;
+    height: 180px;
+    margin-bottom: 10px;
+  }
+}
+
+/* 🎨 Project Section */
+/*.project-card {
+  backdrop-filter: blur(10px);
+  background: rgba(255, 255, 255, 0.6);
+  box-shadow: 0 0 20px rgba(26, 188, 156, 0.5);
+  border: 2px solid rgba(26, 188, 156, 0.4);
+  transition: box-shadow 0.4s ease, transform 0.4s ease;
+}
+.project-card:hover {
+  box-shadow: 0 0 30px rgba(26, 188, 156, 0.8);
+  transform: translateY(-5px);
+}*/
+
+/* 🔹 Project Gallery */
+.project-gallery {
+  display: flex;
+  justify-content: center;
+  margin-top: 25px;
+}
+
+.project-img {
+  position: relative;
+  overflow: hidden;
+  border-radius: 20px;
+  border: 3px solid rgba(26, 188, 156, 0.7);
+  box-shadow: 0 0 25px rgba(26, 188, 156, 0.7);
+  transition: transform 0.5s ease, box-shadow 0.5s ease;
+}
+
+.project-img:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 40px rgba(26, 188, 156, 0.9);
+}
+
+.project-img img {
+  width: 100%;
+  max-width: 700px;
+  height: auto;
+  display: block;
+  border-radius: 20px;
+  object-fit: cover;
+  filter: brightness(0.95);
+  transition: filter 0.4s ease;
+}
+
+.project-img img:hover {
+  filter: brightness(1.05);
+}
+
+/* 📱 Responsive */
+@media (max-width: 700px) {
+  .project-img img {
+    max-width: 100%;
+  }
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- 🔝 เมนูนำทาง -->
+<nav>
+  <a href="#profile">Profile</a>
+  <a href="#about">About Me</a>
+  <a href="#skills">Skills</a>
+  <a href="#projects">Projects</a>
+  <a href="#education">Education</a>
+  <a href="#activities">Activities</a>
+  <a href="#contact">Contact</a>
+  <a href="#career">Career</a>
+</nav>
+
+<!-- 🏠 Profile -->
+<section id="profile" class="visible">
+  <img src="profile.jpg" alt="Profile Picture">
+  <h1>นาย ภัคพล บทมาตย์</h1>
+  <h3>Phakaphon Bormart</h3>
+  <p>นักศึกษาปีที่ 3 สาขาวิทยาการคอมพิวเตอร์ มหาวิทยาลัยราชภัฏอุดรธานี</p>
+  <p>สนใจด้าน AI, Game Development</p>
+</section>
+
+<!-- 💡 Skills -->
+<section id="skills">
+  <h2>Skills</h2>
+  <div class="card">
+    <ul>
+      <li><b>Programming:</b> Python, Java, HTML/CSS, C, SQL, PHP</li>
+      <li><b>Tools:</b> Git, VS Code, XAMPP</li>
+      <li><b>Soft Skills:</b> การสื่อสาร, การทำงานเป็นทีม, การแก้ปัญหา</li>
+    </ul>
+  </div>
+</section>
+
+<!-- 🧩 Projects -->
+<section id="projects">
+  <h2>Projects / Portfolio</h2>
+  <div class="card project-card">
+    <ul>
+      <li>🌐 เว็บไซต์แนะนำจังหวัดอุดรธานี (Web Project)</li>
+    </ul>
+
+    <!-- 🔹 กล่องรูปโปรเจกต์ -->
+    <div class="project-gallery">
+      <div class="project-img">
+        <img src="UDcity.jpg" alt="เว็บไซต์แนะนำจังหวัดอุดรธานี">
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- 🎓 Education -->
+<section id="education">
+  <h2>Education</h2>
+  <div class="card">
+     <div class="activity-item">
+      <img src="school9.jpg" alt="เทศบาล 9 Logo">
+      <div class="activity-text">
+        <p><b>💡 จบการศึกษาจาก โรงเรียนเทศบาล 9 มฆเทียนทองอนุสรณ์</b></p>
+        <p>ตั้งแต่อนุบาล 1 ถึง ประถมศึกษาปีที่ 6</p>
+        <p>ปีการศึกษา 2550 - 2558</p>
+      </div>
+    </div>
+    <hr>
+    <div class="activity-item">
+      <img src="school3.jpg" alt="เทศบาล 3 Logo">
+      <div class="activity-text">
+        <p><b>💡 จบการศึกษาจาก โรงเรียนเทศบาล 3 บ้านเหล่า</b></p>
+        <p>ตั้งแต่มัธยมศึกษาปีที่ 1 ถึง มัธยมศึกษาปีที่ 6</p>
+        <p>ปีการศึกษา 2559 - 2566</p>
+      </div>
+    </div>
+    <hr>
+    <div class="activity-item">
+      <img src="UDRU.jpg" alt="UDRU Logo">
+      <div class="activity-text">
+        <p><b>💡 มหาวิทยาลัยราชภัฏอุดรธานี</b></p>
+        <p>คณะวิทยาศาสตร์ สาขาวิทยาการคอมพิวเตอร์</p>
+        <p>ปีการศึกษา 2566 - ปัจจุบัน</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 🏆 Activities -->
+<section id="activities">
+  <h2>Activities / Achievements</h2>
+  <div class="card">
+    <ul>
+      <li>🎓 เข้าร่วมอบรม “Super AI Engineer Season 5”</li>
+    </ul>
+    <div class="activity-item">
+      <img src="cyber.jpg" alt="อบรมความปลอดภัยทางไซเบอร์">
+      <div class="activity-text">
+        <p><b>💡 วิทยากรอบรม ความปลอดภัยทางไซเบอร์</b></p>
+      </div>
+    </div>
+     <div class="activity-item">
+      <img src="AR.jpg" alt="อบรมความปลอดภัยทางไซเบอร์">
+      <div class="activity-text">
+        <p><b>💡 วิทยากรอบรม AR ให้รุ่นน้อง</b></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 📬 Contact -->
+<section id="contact">
+  <h2>Contact</h2>
+  <div class="card contact-card">
+    <p>📧 <b>Email:</b> <a href="mailto:blovepza@gmail.com">blovepza@gmail.com</a></p>
+    <p>🔗 <b>GitHub:</b> <a href="https://github.com/Phakaphon-Bodmart" target="_blank">Phakaphon-Bodmart</a></p>
+    <p>🌍 <b>ที่อยู่:</b> อำเภอเมือง จังหวัดอุดรธานี</p>
+    <div class="social-links"></div>
+    <p>📘 <b>Facebook:</b> Phakaphon Bodmart</p>
+    <p>📸 <b>Instagram:</b> Pb_bxw.w</p>
+    </div>
+  </div>
+</section>
+
+
+<!-- 🎯 Career -->
+<section id="career">
+  <h2>Career Interest</h2>
+  <div class="card">
+    <p>อยากเป็นนักพัฒนา AI และ Game Developer เพื่อสร้างนวัตกรรมที่ช่วยพัฒนาชุมชนและสังคม</p>
+  </div>
+</section>
+
+<script>
+// Animation สำหรับ Section ทั่วไป
+const sections = document.querySelectorAll("section");
+window.addEventListener("scroll", () => {
+  const triggerBottom = window.innerHeight * 0.85;
+  sections.forEach(section => {
+    const boxTop = section.getBoundingClientRect().top;
+    if (boxTop < triggerBottom) {
+      section.classList.add("visible");
+    }
+  });
+});
+
+// Animation สำหรับ Education
+const eduItems = document.querySelectorAll(".edu-item");
+window.addEventListener("scroll", () => {
+  const triggerBottom = window.innerHeight * 0.9;
+  eduItems.forEach(item => {
+    const itemTop = item.getBoundingClientRect().top;
+    if (itemTop < triggerBottom) {
+      item.classList.add("visible");
+    }
+  });
+});
+
+// Animation สำหรับ Activity
+const actItems = document.querySelectorAll(".activity-item");
+window.addEventListener("scroll", () => {
+  const triggerBottom = window.innerHeight * 0.9;
+  actItems.forEach(item => {
+    const itemTop = item.getBoundingClientRect().top;
+    if (itemTop < triggerBottom) {
+      item.classList.add("visible");
+    }
+  });
+});
+</script>
+
+</body>
+</html>
